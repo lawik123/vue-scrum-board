@@ -1,65 +1,56 @@
 <template>
   <div id="app">
-    <board v-bind:board="board" />
+    <template v-if="loading">
+      <spinner/>
+    </template>
+    <template v-if="board.columns.length > 0">
+      <board v-bind:board="board" />
+    </template>
   </div>
 </template>
 
 <script>
-import board from './components/board.vue';
+import axios from 'axios';
+import board from './components/scrumboard/board.vue';
+import spinner from './components/util/spinner.vue';
 
 export default {
   name: 'app',
   components: {
     board,
+    spinner,
   },
   data() {
     return {
+      loading: true,
       board: {
-        columns: [
-          {
-            name: 'todo',
-            stories: [
-              { id: 1, title: 'test', points: 5 },
-              { id: 2, title: 'test', points: 5 },
-            ],
-          },
-          {
-            name: 'doing',
-            stories: [
-              { id: 3, title: 'test', points: 5 },
-              { id: 4, title: 'test', points: 5 },
-              { id: 5, title: 'test', points: 5 },
-            ],
-          },
-          { name: 'done', stories: [{ id: 6, title: 'test', points: 5 }] },
-          {
-            name: 'extra',
-            stories: [
-              { id: 7, title: 'test', points: 5 },
-              { id: 8, title: 'test', points: 5 },
-              { id: 9, title: 'test', points: 5 },
-              { id: 10, title: 'test', points: 5 },
-              { id: 11, title: 'test', points: 5 },
-              { id: 12, title: 'test', points: 5 },
-              { id: 13, title: 'test', points: 5 },
-              { id: 14, title: 'test', points: 5 },
-              { id: 15, title: 'test', points: 5 },
-              { id: 16, title: 'test', points: 5 },
-              { id: 18, title: 'test', points: 5 },
-              { id: 19, title: 'test', points: 5 },
-              { id: 20, title: 'test', points: 5 },
-              { id: 21, title: 'test', points: 5 },
-              { id: 22, title: 'test', points: 5 },
-              { id: 23, title: 'test', points: 5 },
-            ],
-          },
-          { name: 'extra', stories: [{ id: 24, title: 'test', points: 5 }] },
-          { name: 'extra', stories: [{ id: 25, title: 'test', points: 5 }] },
-          { name: 'extra', stories: [{ id: 26, title: 'test', points: 5 }] },
-          { name: 'extra', stories: [{ id: 27, title: 'test', points: 5 }] },
-        ],
+        name: '',
+        columns: [],
       },
     };
+  },
+  mounted() {
+    if (localStorage.getItem('board')) {
+      this.board = JSON.parse(localStorage.getItem('board'));
+    }
+    axios.all([
+      axios.get('http://localhost:3000/boards/1/'), // TODO: replace 1 with board id from route
+      axios.get('http://localhost:3000/boards/1/columns?_embed=stories'),
+    ])
+      .then(axios.spread((boardRes, columnsRes) => {
+        const loadedBoard = boardRes.data;
+        loadedBoard.columns = columnsRes.data;
+        this.board = loadedBoard;
+        this.loading = false;
+      }));
+  },
+  watch: {
+    board: {
+      handler() {
+        localStorage.setItem('board', JSON.stringify(this.board));
+      },
+      deep: true,
+    },
   },
 };
 </script>
