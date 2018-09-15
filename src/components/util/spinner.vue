@@ -1,5 +1,5 @@
 <template>
-<div id="overlay" onclick="off()">
+<div class="overlay">
     <div class="spinner"></div>
 </div>
 
@@ -35,7 +35,7 @@ export default {
   }
 }
 
-#overlay {
+.overlay {
   position: absolute;
     top:0px;
     left:0px;
