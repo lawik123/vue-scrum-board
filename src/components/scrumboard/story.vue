@@ -1,8 +1,10 @@
 <template>
   <div v-bind:style="{'cursor': moveable ? 'pointer' : 'normal'}" v-on:click="move()" class="story">
-    <h5 class="story-details">
-      {{story.id}} {{story.title}} {{story.points}}
-    </h5>
+    <div class="story-details">
+      <h6>{{story.id}}</h6>
+      <h4>{{story.title}}</h4>
+      <h5>{{story.points}}</h5>
+    </div>
   </div>
 </template>
 
@@ -26,7 +28,6 @@ export default {
 <style>
 .story {
   background-color: #fff;
-  min-height: 20px;
   padding: 6px 8px 2px;
   margin-bottom: 8px;
   border-radius: 3px;
@@ -35,5 +36,15 @@ export default {
 .story-details {
   margin: 0 0 4px;
   word-break: break-word;
+  overflow: hidden;
+}
+
+.story-details h4, .story-details h6 {
+  margin: 0 0 4px;
+}
+
+.story-details h5{
+  float: right;
+  margin: 0;
 }
 </style>
