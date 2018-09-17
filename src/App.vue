@@ -1,24 +1,16 @@
 <template>
   <div id="app">
-    <template v-if="loading">
-      <spinner/>
-    </template>
-    <template v-if="board.columns.length > 0">
-      <board v-bind:board="board" />
-    </template>
+    <board v-bind:board="board" />
   </div>
 </template>
 
 <script>
-import axios from 'axios';
 import board from './components/scrumboard/board.vue';
-import spinner from './components/util/spinner.vue';
 
 export default {
   name: 'app',
   components: {
     board,
-    spinner,
   },
   data() {
     return {
@@ -33,16 +25,6 @@ export default {
     if (localStorage.getItem('board')) {
       this.board = JSON.parse(localStorage.getItem('board'));
     }
-    axios.all([
-      axios.get('http://localhost:3000/boards/1/'), // TODO: replace 1 with board id from route
-      axios.get('http://localhost:3000/boards/1/columns?_embed=stories'),
-    ])
-      .then(axios.spread((boardRes, columnsRes) => {
-        const loadedBoard = boardRes.data;
-        loadedBoard.columns = columnsRes.data;
-        this.board = loadedBoard;
-        this.loading = false;
-      }));
   },
   watch: {
     board: {
