@@ -2,21 +2,50 @@
   <div class="board">
     <h2 class="boardName">{{board.name}}</h2>
     <div class="columns">
-      <column v-for="column in board.columns" v-bind:key="column.id" v-bind:name="column.name" v-bind:stories="column.stories" />
+      <column v-for="(column, index) in board.columns" v-bind:key="column.id" v-bind:name="column.name" v-bind:id="column.id" v-bind:stories="column.stories" v-bind:lastColumn="index === (board.columns.length - 1)" v-on:moveStory="onMoveStory" />
     </div>
+    <floatingActionButton v-bind:clickHandler="toggleModal">+</floatingActionButton>
+    <formModal v-if="showModal" v-on:formSuccess="onFormSuccess" v-bind:title="'Add a new Story'" v-bind:submitButtonText="'add'" v-on:closeModal="toggleModal" v-bind:inputFields="[{id:'title', type: 'text', required: true}, {id:'points', type: 'number', required: true, min: 0 }]">
+    </formModal>
   </div>
 </template>
 
 <script>
 import column from './column.vue';
+import floatingActionButton from '../util/floatingActionButton.vue';
+import formModal from '../util/modal/formModal.vue';
 
 export default {
   name: 'board',
   components: {
     column,
+    floatingActionButton,
+    formModal,
   },
   props: {
     board: Object,
+  },
+  data() {
+    return {
+      showModal: false,
+    };
+  },
+  methods: {
+    onMoveStory(index, columnId) {
+      const columnIndex = this.board.columns.findIndex(obj => obj.id === columnId);
+      if (columnIndex !== -1 && columnIndex !== (this.board.columns.length - 1)) {
+        const story = this.board.columns[columnIndex].stories[index];
+        this.board.columns[columnIndex].stories.splice(index, 1);
+        this.board.columns[columnIndex + 1].stories.push(story);
+      }
+    },
+    toggleModal() {
+      this.showModal = !this.showModal;
+    },
+    onFormSuccess(values) {
+      this.board.columns[0].stories.push({ id: this.board.storyIdCounter += 1, title: values.title, points: values.points });
+      this.toggleModal();
+    },
   },
 };
 </script>
@@ -38,7 +67,6 @@ export default {
   flex-wrap: nowrap;
   overflow-x: auto;
   justify-content: flex-start;
-  height: 100%;
   flex: 1;
 }
 </style>

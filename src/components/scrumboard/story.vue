@@ -1,11 +1,9 @@
 <template>
-    <div class="story">
-        <h5 class="story-details">
-            {{story.id}}
-            {{story.title}}
-            {{story.points}}
-        </h5>
-    </div>
+  <div v-bind:style="{'cursor': moveable ? 'pointer' : 'normal'}" v-on:click="move()" class="story">
+    <h5 class="story-details">
+      {{story.id}} {{story.title}} {{story.points}}
+    </h5>
+  </div>
 </template>
 
 <script>
@@ -13,6 +11,14 @@ export default {
   name: 'story',
   props: {
     story: Object,
+    moveable: Boolean,
+  },
+  methods: {
+    move() {
+      if (this.moveable) {
+        this.$emit('moveStory', this.story.id);
+      }
+    },
   },
 };
 </script>

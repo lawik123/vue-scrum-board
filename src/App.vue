@@ -14,10 +14,10 @@ export default {
   },
   data() {
     return {
-      loading: true,
       board: {
-        name: '',
-        columns: [],
+        storyIdCounter: 0,
+        name: 'First Board',
+        columns: [{ name: 'To-Do', stories: [], id: 1 }, { name: 'Doing', stories: [], id: 2 }, { name: 'Testing', stories: [], id: 3 }, { name: 'Done', stories: [], id: 4 }],
       },
     };
   },

@@ -3,7 +3,7 @@
     <div class="column-content">
       <h3 class="column-name">{{name}}</h3>
       <div class="stories">
-        <story v-for="story in stories" v-bind:key="story.id" v-bind:story="story" />
+        <story v-for="story in stories" v-bind:key="story.id" v-bind:story="story" v-bind:moveable="!lastColumn"  v-on:moveStory="onMoveStory"/>
       </div>
     </div>
   </div>
@@ -17,9 +17,19 @@ export default {
   props: {
     name: String,
     stories: Array,
+    lastColumn: Boolean,
+    id: Number,
   },
   components: {
     story,
+  },
+  methods: {
+    onMoveStory(id) {
+      const index = this.stories.findIndex(obj => obj.id === id);
+      if (index !== -1) {
+        this.$emit('moveStory', index, this.id);
+      }
+    },
   },
 };
 </script>
