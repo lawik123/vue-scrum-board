@@ -1,38 +1,16 @@
 <template>
   <div id="app">
-    <board v-bind:board="board" />
+    <keep-alive><router-view></router-view></keep-alive>
   </div>
 </template>
 
 <script>
-import board from './components/scrumboard/board.vue';
+import boards from './components/scrumboard/boards.vue';
 
 export default {
   name: 'app',
   components: {
-    board,
-  },
-  data() {
-    return {
-      board: {
-        storyIdCounter: 0,
-        name: 'First Board',
-        columns: [{ name: 'To-Do', stories: [], id: 1 }, { name: 'Doing', stories: [], id: 2 }, { name: 'Testing', stories: [], id: 3 }, { name: 'Done', stories: [], id: 4 }],
-      },
-    };
-  },
-  mounted() {
-    if (localStorage.getItem('board')) {
-      this.board = JSON.parse(localStorage.getItem('board'));
-    }
-  },
-  watch: {
-    board: {
-      handler() {
-        localStorage.setItem('board', JSON.stringify(this.board));
-      },
-      deep: true,
-    },
+    boards,
   },
 };
 </script>

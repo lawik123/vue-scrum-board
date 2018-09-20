@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:style="{'cursor': moveable ? 'pointer' : 'normal'}" v-on:click="move()" class="story">
+  <div v-bind:style="{'cursor': moveable ? 'pointer' : 'normal'}" v-on:click="move" class="story">
     <div class="story-details">
       <h6>{{story.id}}</h6>
       <h4>{{story.title}}</h4>

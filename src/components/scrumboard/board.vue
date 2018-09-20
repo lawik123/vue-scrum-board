@@ -1,6 +1,7 @@
 <template>
   <div class="board">
-    <h2 class="boardName">{{board.name}}</h2>
+    <h2 class="boardName">
+      <span v-on:click="navigateToBoards">&larr;</span> {{board.name}}</h2>
     <div class="columns">
       <column v-for="(column, index) in board.columns" v-bind:key="column.id" v-bind:name="column.name" v-bind:id="column.id" v-bind:stories="column.stories" v-bind:lastColumn="index === (board.columns.length - 1)" v-on:moveStory="onMoveStory" />
     </div>
@@ -46,6 +47,9 @@ export default {
       this.board.columns[0].stories.push({ id: this.board.storyIdCounter += 1, title: values.title, points: values.points });
       this.toggleModal();
     },
+    navigateToBoards() {
+      this.$router.go(-1);
+    },
   },
 };
 </script>
@@ -56,6 +60,12 @@ export default {
   margin: 0 0 5px 0;
   overflow-x: auto;
 }
+
+.boardName span {
+  user-select: none;
+  cursor: pointer;
+}
+
 .board {
   height: 100%;
   display: flex;
