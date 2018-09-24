@@ -1,6 +1,6 @@
 <!-- TODO(maybe): turn the form section of this component into a seperate component -->
 <template>
-  <headerBodyFooterModal v-bind:closeButtonText="'Cancel'" v-bind:title="title" v-on:closeModal="$emit('closeModal')">
+  <HeaderBodyFooterModal v-bind:closeButtonText="'Cancel'" v-bind:title="title" v-on:closeModal="$emit('closeModal')">
     <div class="inputFields" slot="body">
       <div v-for="(input,key) in formData" v-bind:key="key">
         <h4 class="inputDisplayText">{{input.displayText !=null ? input.displayText : key}}</h4>
@@ -9,16 +9,16 @@
       </div>
     </div>
     <button slot="footerButtons" class="FooterButton addButton" v-on:click="submit">{{submitButtonText}}</button>
-  </headerBodyFooterModal>
+  </HeaderBodyFooterModal>
 </template>
 
 <script>
-import headerBodyFooterModal from './headerBodyFooterModal.vue';
+import HeaderBodyFooterModal from './HeaderBodyFooterModal.vue';
 
 export default {
-  name: 'formModal',
+  name: 'FormModal',
   components: {
-    headerBodyFooterModal,
+    HeaderBodyFooterModal,
   },
   props: {
     title: String,

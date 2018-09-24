@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Boards from '../components/scrumboard/boards'
-import Board from '../components/scrumboard/board'
+import BoardsOverview from '../components/BoardsOverview'
+import Board from '../components/scrumboard/Board'
 
 Vue.use(VueRouter)
 
 const routes = [
     { 
        path: '/',
-       component: Boards,
+       component: BoardsOverview,
     },
     { 
         path: '/board/:board',

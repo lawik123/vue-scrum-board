@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'story',
+  name: 'Story',
   props: {
     story: Object,
     moveable: Boolean,

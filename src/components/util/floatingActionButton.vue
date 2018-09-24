@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'floatingActionButton',
+  name: 'FloatingActionButton',
   props: {
     clickHandler: Function,
   },

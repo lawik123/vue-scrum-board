@@ -1,26 +1,27 @@
 <template>
-    <div>
-        <h1 class="welcomeMessage">Hello, please select or create a board!</h1>
-        <div class="boardsContainer">
-            <div class="boardItem" v-for="board in boardsData.boards" v-bind:key="board.id" v-on:click="navigateToBoard(board)">
-            <h3>{{board.name}}</h3>
-            </div>
-        </div>
-        <floatingActionButton v-bind:clickHandler="toggleModal">+</floatingActionButton>
-        <formModal v-if="showModal" v-on:formSuccess="onFormSuccess" v-bind:title="'Add a new board'" v-bind:submitButtonText="'add'" v-on:closeModal="toggleModal" v-bind:inputFields="[{id:'boardName', displayText: 'Board name', type: 'text', required: true}]">
-        </formModal>
+  <div>
+    <h1 v-if="boardsData.boards.length == 0" class="welcomeMessage">Hello, please start by creating your first board!</h1>
+    <h1 v-else class="welcomeMessage">Hello, please select or create a board!</h1>
+    <div class="boardsContainer">
+      <div class="boardItem" v-for="board in boardsData.boards" v-bind:key="board.id" v-on:click="navigateToBoard(board)">
+        <h3>{{board.name}}</h3>
+      </div>
     </div>
+    <FloatingActionButton v-bind:clickHandler="toggleModal">+</FloatingActionButton>
+    <FormModal v-if="showModal" v-on:formSuccess="onFormSuccess" v-bind:title="'Add a new board'" v-bind:submitButtonText="'add'" v-on:closeModal="toggleModal" v-bind:inputFields="[{id:'boardName', displayText: 'Board name', type: 'text', required: true}]">
+    </FormModal>
+  </div>
 </template>
 
 <script>
-import floatingActionButton from '../util/floatingActionButton.vue';
-import formModal from '../util/modal/formModal.vue';
+import FloatingActionButton from './util/FloatingActionButton.vue';
+import FormModal from './util/modal/FormModal.vue';
 
 export default {
-  name: 'boards',
+  name: 'BoardsOverview',
   components: {
-    floatingActionButton,
-    formModal,
+    FloatingActionButton,
+    FormModal,
   },
   data() {
     return {
@@ -91,7 +92,7 @@ export default {
   margin-bottom: 10px;
 }
 
-.boardItem h3{
+.boardItem h3 {
   padding: 10px;
   margin: 0;
 }

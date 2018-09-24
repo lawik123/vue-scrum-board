@@ -3,17 +3,17 @@
     <div class="column-content">
       <h3 class="column-name">{{name}}</h3>
       <div class="stories">
-        <story v-for="story in stories" v-bind:key="story.id" v-bind:story="story" v-bind:moveable="!lastColumn"  v-on:moveStory="onMoveStory"/>
+        <Story v-for="story in stories" v-bind:key="story.id" v-bind:story="story" v-bind:moveable="!lastColumn"  v-on:moveStory="onMoveStory"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import story from './story.vue';
+import Story from './Story.vue';
 
 export default {
-  name: 'column',
+  name: 'Column',
   props: {
     name: String,
     stories: Array,
@@ -21,7 +21,7 @@ export default {
     id: Number,
   },
   components: {
-    story,
+    Story,
   },
   methods: {
     onMoveStory(id) {

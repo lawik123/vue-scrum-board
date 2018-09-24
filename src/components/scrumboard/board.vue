@@ -3,25 +3,25 @@
     <h2 class="boardName">
       <span v-on:click="navigateToBoards">&larr;</span> {{board.name}}</h2>
     <div class="columns">
-      <column v-for="(column, index) in board.columns" v-bind:key="column.id" v-bind:name="column.name" v-bind:id="column.id" v-bind:stories="column.stories" v-bind:lastColumn="index === (board.columns.length - 1)" v-on:moveStory="onMoveStory" />
+      <Column v-for="(column, index) in board.columns" v-bind:key="column.id" v-bind:name="column.name" v-bind:id="column.id" v-bind:stories="column.stories" v-bind:lastColumn="index === (board.columns.length - 1)" v-on:moveStory="onMoveStory" />
     </div>
-    <floatingActionButton v-bind:clickHandler="toggleModal">+</floatingActionButton>
-    <formModal v-if="showModal" v-on:formSuccess="onFormSuccess" v-bind:title="'Add a new Story'" v-bind:submitButtonText="'add'" v-on:closeModal="toggleModal" v-bind:inputFields="[{id:'title', type: 'text', required: true}, {id:'points', type: 'number', required: true, min: 0 }]">
-    </formModal>
+    <FloatingActionButton v-bind:clickHandler="toggleModal">+</FloatingActionButton>
+    <FormModal v-if="showModal" v-on:formSuccess="onFormSuccess" v-bind:title="'Add a new Story'" v-bind:submitButtonText="'add'" v-on:closeModal="toggleModal" v-bind:inputFields="[{id:'title', type: 'text', required: true}, {id:'points', type: 'number', required: true, min: 0 }]">
+    </FormModal>
   </div>
 </template>
 
 <script>
-import column from './column.vue';
-import floatingActionButton from '../util/floatingActionButton.vue';
-import formModal from '../util/modal/formModal.vue';
+import Column from './Column.vue';
+import FloatingActionButton from '../util/FloatingActionButton.vue';
+import FormModal from '../util/modal/FormModal.vue';
 
 export default {
-  name: 'board',
+  name: 'Board',
   components: {
-    column,
-    floatingActionButton,
-    formModal,
+    Column,
+    FloatingActionButton,
+    FormModal,
   },
   props: {
     board: Object,

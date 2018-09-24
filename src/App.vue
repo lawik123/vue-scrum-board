@@ -5,12 +5,12 @@
 </template>
 
 <script>
-import boards from './components/scrumboard/boards.vue';
+import BoardsOverview from './components/BoardsOverview.vue';
 
 export default {
   name: 'app',
   components: {
-    boards,
+    BoardsOverview,
   },
 };
 </script>

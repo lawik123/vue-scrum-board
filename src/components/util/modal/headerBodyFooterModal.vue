@@ -1,5 +1,5 @@
 <template>
-    <baseModal v-on:closeModal="$emit('closeModal')">
+    <BaseModal v-on:closeModal="$emit('closeModal')">
         <div class="modal-header">
             <h3>
                 {{title}}
@@ -17,16 +17,16 @@
             <slot name="footerButtons">
             </slot>
         </div>
-    </baseModal>
+    </BaseModal>
 </template>
 
 <script>
-import baseModal from './baseModal.vue';
+import BaseModal from './BaseModal.vue';
 
 export default {
-  name: 'headerBodyFooterModal',
+  name: 'HeaderBodyFooterModal',
   components: {
-    baseModal,
+    BaseModal,
   },
   props: {
     title: String,
