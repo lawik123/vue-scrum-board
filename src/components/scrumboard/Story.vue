@@ -20,7 +20,7 @@ export default {
   methods: {
     move() {
       if (this.moveable) {
-        this.$emit('moveStory', this.story.id);
+        this.$emit('moveStory', this.id);
       }
     },
   },
