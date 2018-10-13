@@ -26,7 +26,6 @@ export default {
       default: 'Submit',
       type: String,
     },
-    submitFunction: Function,
   },
   data() {
     return {
