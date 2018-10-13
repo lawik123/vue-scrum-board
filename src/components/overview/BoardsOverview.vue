@@ -3,9 +3,7 @@
     <h1 v-if="boardsData.boards.length == 0" class="welcomeMessage">Hello, please start by creating your first board!</h1>
     <h1 v-else class="welcomeMessage">Hello, please select or create a board!</h1>
     <div class="boardsContainer">
-      <div class="boardItem" v-for="board in boardsData.boards" v-bind:key="board.id" v-on:click="navigateToBoard(board)">
-        <h3>{{board.name}}</h3>
-      </div>
+      <BoardItem v-for="board in boardsData.boards" v-bind:key="board.id" v-bind:id="board.id" v-bind:name="board.name" v-on:boardClick="navigateToBoard"/>
     </div>
     <FloatingActionButton v-bind:clickHandler="toggleModal">+</FloatingActionButton>
     <FormModal v-if="showModal" v-on:formSuccess="onFormSuccess" v-bind:title="'Add a new board'" v-bind:submitButtonText="'add'" v-on:closeModal="toggleModal" v-bind:inputFields="[{id:'boardName', displayText: 'Board name', type: 'text', required: true}]">
@@ -14,14 +12,16 @@
 </template>
 
 <script>
-import FloatingActionButton from './util/FloatingActionButton.vue';
-import FormModal from './util/modal/FormModal.vue';
+import FloatingActionButton from '../util/FloatingActionButton.vue';
+import FormModal from '../util/modal/FormModal.vue';
+import BoardItem from './BoardItem.vue';
 
 export default {
   name: 'BoardsOverview',
   components: {
     FloatingActionButton,
     FormModal,
+    BoardItem,
   },
   data() {
     return {
@@ -46,8 +46,12 @@ export default {
     },
   },
   methods: {
-    navigateToBoard(board) {
-      this.$router.push({ name: 'board', params: { board } });
+    navigateToBoard(id) {
+      console.log(id);
+      const index = this.boardsData.boards.findIndex(obj => obj.id === id);
+      if (index !== -1) {
+        this.$router.push({ name: 'board', params: { board: this.boardsData.boards[index] } });
+      }
     },
     toggleModal() {
       this.showModal = !this.showModal;
@@ -76,24 +80,5 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-}
-
-.boardItem {
-  background-color: #dfe3e6;
-  border-radius: 3px;
-  user-select: none;
-  cursor: pointer;
-  height: 100px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  flex-basis: 49%;
-  word-break: break-word;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.boardItem h3 {
-  padding: 10px;
-  margin: 0;
 }
 </style>
