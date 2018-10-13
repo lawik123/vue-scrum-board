@@ -1,4 +1,3 @@
-<!-- TODO(maybe): turn the form section of this component into a seperate component -->
 <template>
   <HeaderBodyFooterModal v-bind:closeButtonText="'Cancel'" v-bind:title="title" v-on:closeModal="$emit('closeModal')">
     <div class="inputFields" slot="body">
@@ -56,18 +55,18 @@ export default {
       });
       Object.keys(this.formData).forEach((key) => {
         const input = this.formData[key];
-        // TODO: Format this section
+        const isInputEmpty = this.isInputEmpty(input);
         if (
-          (input.value === undefined || input.value.length === 0) &&
+          isInputEmpty &&
           input.required === true
         ) {
           this.formData[key].error = 'This field is required';
           error = true;
-        } else if (input.type === 'number' && (input.value !== undefined || input.value.length > 0) && Number.isNaN(+input.value)) {
+        } else if (input.type === 'number' && !isInputEmpty && Number.isNaN(+input.value)) {
           this.formData[key].error = 'This field must be a number';
           error = true;
         } else if (
-          (input.value !== undefined || input.value.length > 0) &&
+          !isInputEmpty &&
           input.min !== undefined &&
           parseInt(input.value, 10) < input.min
         ) {
@@ -76,7 +75,7 @@ export default {
           }`;
           error = true;
         } else if (
-          (input.value !== undefined || input.value.length > 0) &&
+          !isInputEmpty &&
           input.max !== undefined &&
           parseInt(input.value, 10) > input.min
         ) {
@@ -94,11 +93,8 @@ export default {
             case 'number':
               inputValues[key] = +value;
               break;
-            case 'text':
-              inputValues[key] = value;
-              break;
             default:
-              inputValues[key] = value; // TODO: Throw some kind of error?
+              inputValues[key] = value;
           }
         });
         this.$emit('formSuccess', inputValues);
@@ -106,6 +102,9 @@ export default {
     },
     clearError(key) {
       this.formData[key].error = '';
+    },
+    isInputEmpty(input) {
+      return input.value === undefined || input.value.length === 0;
     },
   },
 };
