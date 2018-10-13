@@ -1,9 +1,9 @@
 <template>
   <div v-bind:style="{'cursor': moveable ? 'pointer' : 'normal'}" v-on:click="move" class="story">
     <div class="story-details">
-      <h6>{{story.id}}</h6>
-      <h4>{{story.title}}</h4>
-      <h5>{{story.points}}</h5>
+      <h6>{{id}}</h6>
+      <h4>{{title}}</h4>
+      <h5>{{points}}</h5>
     </div>
   </div>
 </template>
@@ -12,7 +12,9 @@
 export default {
   name: 'Story',
   props: {
-    story: Object,
+    id: Number,
+    title: String,
+    points: Number,
     moveable: Boolean,
   },
   methods: {

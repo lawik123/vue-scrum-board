@@ -3,7 +3,7 @@
     <div class="column-content">
       <h3 class="column-name">{{name}}</h3>
       <div class="stories">
-        <Story v-for="story in stories" v-bind:key="story.id" v-bind:story="story" v-bind:moveable="!lastColumn"  v-on:moveStory="onMoveStory"/>
+        <Story v-for="story in stories" v-bind:key="story.id" v-bind:id="story.id" v-bind:title="story.title" v-bind:points="story.points" v-bind:moveable="!lastColumn"  v-on:moveStory="onMoveStory"/>
       </div>
     </div>
   </div>
