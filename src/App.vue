@@ -5,13 +5,9 @@
 </template>
 
 <script>
-import BoardsOverview from './components/BoardsOverview.vue';
 
 export default {
   name: 'app',
-  components: {
-    BoardsOverview,
-  },
 };
 </script>
 
