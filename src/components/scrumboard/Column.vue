@@ -15,10 +15,10 @@ import Story from './Story.vue';
 export default {
   name: 'Column',
   props: {
+    id: Number,
     name: String,
     stories: Array,
     lastColumn: Boolean,
-    id: Number,
   },
   components: {
     Story,
