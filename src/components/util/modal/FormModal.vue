@@ -7,7 +7,7 @@
         <h6 class="inputError" v-if="input.error">{{input.error}}</h6>
       </div>
     </div>
-    <button slot="footerButtons" class="FooterButton addButton" v-on:click="submit">{{submitButtonText}}</button>
+    <button slot="footerButtons" class="FooterButton" v-on:click="submit">{{submitButtonText}}</button>
   </HeaderBodyFooterModal>
 </template>
 

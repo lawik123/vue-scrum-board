@@ -6,7 +6,7 @@
       <BoardItem v-for="board in boardsData.boards" v-bind:key="board.id" v-bind:id="board.id" v-bind:name="board.name" v-on:boardClick="navigateToBoard"/>
     </div>
     <FloatingActionButton v-bind:clickHandler="toggleModal">+</FloatingActionButton>
-    <FormModal v-if="showModal" v-on:formSuccess="onFormSuccess" v-bind:title="'Add a new board'" v-bind:submitButtonText="'add'" v-on:closeModal="toggleModal" v-bind:inputFields="[{id:'boardName', displayText: 'Board name', type: 'text', required: true}]">
+    <FormModal v-if="showModal" v-on:formSuccess="onFormSuccess" v-bind:title="'Add a new board'" v-bind:submitButtonText="'Add'" v-on:closeModal="toggleModal" v-bind:inputFields="[{id:'boardName', displayText: 'Board name', type: 'text', required: true}]">
     </FormModal>
   </div>
 </template>
