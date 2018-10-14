@@ -47,7 +47,6 @@ export default {
   },
   methods: {
     navigateToBoard(id) {
-      console.log(id);
       const index = this.boardsData.boards.findIndex(obj => obj.id === id);
       if (index !== -1) {
         this.$router.push({ name: 'board', params: { board: this.boardsData.boards[index] } });
